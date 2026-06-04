@@ -2,6 +2,7 @@ import "./css/userSidebar.css";
 import querySelectorAsync from "../../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
 import { getSubreddits } from "./getSubreddits";
+import { isNewReddit, isOldReddit, getNotificationCount, createNotificationBadge } from "../notifications";
 
 function createSidebarItem(
     text: string,
@@ -128,7 +129,16 @@ async function setupSubreddits(
 }
 
 async function buildHeaderItems(parentContainer: HTMLDivElement) {
-    const rheader = await querySelectorAsync("#header-bottom-right");
+    // Try to find header - works for both old and new Reddit
+    let rheader = await querySelectorAsync("#header-bottom-right");
+    if (!rheader) {
+        // Try new Reddit header structure
+        rheader = await querySelectorAsync("header");
+    }
+    if (!rheader) {
+        console.warn("Could not find header element");
+        return;
+    }
 
     parentContainer.appendChild(document.createElement("hr"));
     if (document.body.classList.contains("res")) {
@@ -154,9 +164,15 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
         )
     );
 
-    const userlink = rheader.querySelector<HTMLAnchorElement>(".user a");
+    // Find user link - works for both old and new Reddit
+    let userlink = rheader.querySelector<HTMLAnchorElement>(".user a");
+    if (!userlink) {
+        // Try new Reddit user dropdown
+        userlink = rheader.querySelector<HTMLAnchorElement>("[href^='/user/']");
+    }
+    
     if (userlink) {
-        if (userlink.innerText.includes("Log in")) {
+        if (userlink.innerText.includes("Log in") || userlink.innerText.includes("Login") || userlink.innerText.includes("Sign in")) {
             const loginitem = createSidebarItem(
                 "Log in",
                 "javascript:void(0)",
@@ -179,20 +195,68 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
         );
     }
 
+    // Handle mail/notifications - works for both old and new Reddit
+    let mailHref = "/message/inbox/";
+    let mailIcon = "mail";
+    let mailText = "Messages";
+    
+    // Check if we're on new Reddit and adjust accordingly
+    if (isNewReddit()) {
+        mailHref = "/notifications";
+        mailIcon = "notifications";
+        mailText = "Notifications";
+    }
+    
     const mail = rheader.querySelector<HTMLAnchorElement>("#mail");
     if (mail) {
-        let mailicon = mail.classList.contains("nohavemail")
+        // Use the existing mail element from old Reddit
+        mailIcon = mail.classList.contains("nohavemail")
             ? "mail"
             : "mark_email_unread";
-        parentContainer.appendChild(
-            createSidebarItem(
-                "Messages",
-                mail.href,
-                mailicon,
-                location.href === mail.href
-            )
-        );
+        mailHref = mail.href;
     }
+    
+    // Create the messages/notifications sidebar item
+    const messagesItem = createSidebarItem(
+        mailText,
+        mailHref,
+        mailIcon,
+        location.href === mailHref || location.pathname.includes("/message/") || location.pathname.includes("/notifications")
+    );
+    
+    // Add notification badge with count
+    const updateNotificationBadge = async () => {
+        try {
+            const count = await getNotificationCount();
+            // Remove existing badges
+            const existingBadge = messagesItem.querySelector(".notification-badge");
+            if (existingBadge) {
+                existingBadge.remove();
+            }
+            
+            // Add new badge if there are notifications
+            if (count.total > 0) {
+                const badge = createNotificationBadge(count.total, "total");
+                // Find the text span and append badge after it
+                const textSpan = messagesItem.querySelector(".sidebar-text");
+                if (textSpan) {
+                    textSpan.appendChild(badge);
+                } else {
+                    messagesItem.appendChild(badge);
+                }
+            }
+        } catch (error) {
+            console.error("Error updating notification badge:", error);
+        }
+    };
+    
+    // Initial update
+    updateNotificationBadge();
+    
+    // Update periodically (every 5 minutes)
+    setInterval(updateNotificationBadge, 5 * 60 * 1000);
+    
+    parentContainer.appendChild(messagesItem);
 
     const prefslink = "https://old.reddit.com/prefs/";
     parentContainer.appendChild(
@@ -211,8 +275,12 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
         false
     );
     logoutItem.onclick = () => {
-        const logoutLink =
-            rheader.querySelector<HTMLAnchorElement>("form.logout a");
+        // Try to find logout link - works for both old and new Reddit
+        let logoutLink = rheader.querySelector<HTMLAnchorElement>("form.logout a");
+        if (!logoutLink) {
+            // Try new Reddit logout button
+            logoutLink = rheader.querySelector<HTMLAnchorElement>("[href*='/logout']");
+        }
         if (logoutLink) {
             logoutLink.click();
         } else {
