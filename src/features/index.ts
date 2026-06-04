@@ -8,6 +8,7 @@ import { OLFeature } from "./base";
 import WhiteTheme from "./themeSwitch";
 import RedesignRedirect from "./redesignRedirect";
 import IconSizeChange from "./iconRegulator";
+import Notifications from "./notifications";
 type Constructor = new (...args: any[]) => OLFeature;
 const features: Array<Constructor> = [
     Expandos,
@@ -18,6 +19,7 @@ const features: Array<Constructor> = [
     WhiteTheme,
     RedesignRedirect,
     IconSizeChange,
+    Notifications,
 ];
 features.push(...PostsEnhancements);
 export default features;
