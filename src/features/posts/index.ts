@@ -9,6 +9,7 @@ import NativeShare from "./nativeSharing";
 import IndentCommentHide from "./indentCommentHide";
 import ReimplementVotes from "./reimplementVotes";
 import ButtonHide from "./buttonHide";
+import CardView from "./cardView";
 
 function setupLinkPost(post: HTMLDivElement) {
     const comments = post.querySelector<HTMLAnchorElement>(".comments");
@@ -20,8 +21,9 @@ function setupLinkPost(post: HTMLDivElement) {
     }
 
     // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
+    // Don't remove empty thumbnails if card view is enabled (they'll get placeholders)
     const thumbnail = post.querySelector(".thumbnail");
-    if (thumbnail !== null && thumbnail.children.length === 0) {
+    if (thumbnail !== null && thumbnail.children.length === 0 && !document.body.classList.contains("ol-card-view")) {
         thumbnail.remove();
     }
 
@@ -53,4 +55,5 @@ export default [
     IndentCommentHide,
     ReimplementVotes,
     ButtonHide,
+    CardView,
 ];

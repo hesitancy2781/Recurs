@@ -1,0 +1,487 @@
+/* Card View Layout - Inspired by Sync For Reddit */
+
+/* Base card container styling */
+.ol-card-view .link.ol-card-container {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    margin-bottom: 12px !important;
+    padding: 0 !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Card content padding */
+.ol-card-view .link.ol-card-container > .ol-post-container {
+    padding: 12px !important;
+}
+
+/* Card content container */
+.ol-card-view .ol-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+/* Card layout for link posts - titles below images */
+.ol-card-view .ol-post-container[data-type="link"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+}
+
+/* Thumbnail styling for card view */
+.ol-card-view .ol-card-thumbnail {
+    width: 100% !important;
+    height: auto !important;
+    min-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 300px !important;
+    object-fit: cover;
+    border-radius: 0 !important;
+    order: -1 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.ol-card-view .ol-card-thumbnail img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    object-fit: cover;
+    display: block !important;
+}
+
+/* Handle thumbnail links to show larger previews */
+.ol-card-view .thumbnail a {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ol-card-view .thumbnail a img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+/* Larger thumbnails for link posts */
+.ol-card-view .link[data-type="link"] .thumbnail {
+    width: 100% !important;
+    height: auto !important;
+    min-width: 140px !important;
+    min-height: 140px !important;
+    max-width: 100% !important;
+    max-height: 300px !important;
+    margin-bottom: 8px !important;
+}
+
+/* For link posts, make thumbnails take full width of card */
+.ol-card-view .link[data-type="link"] .ol-post-container {
+    width: 100% !important;
+}
+
+.ol-card-view .link[data-type="link"] .ol-card-content {
+    width: 100% !important;
+}
+
+/* Special handling for image posts */
+.ol-card-view .link[data-type="link"][data-domain*="imgur.com"] .thumbnail,
+.ol-card-view .link[data-type="link"][data-domain*="i.redd.it"] .thumbnail,
+.ol-card-view .link[data-type="link"][data-domain*="reddit.com"] .thumbnail {
+    width: 160px !important;
+    height: 160px !important;
+    min-width: 160px !important;
+    min-height: 160px !important;
+}
+
+/* Ensure thumbnails are visible and properly sized */
+.ol-card-view .thumbnail:not(:empty) {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Thumbnail placeholder styling */
+.ol-card-view .ol-thumbnail-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: var(--md-sys-color-surface-tint) !important;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-size: 24px !important;
+}
+
+.ol-card-view .ol-thumbnail-placeholder .material-symbols-outlined {
+    font-size: 24px !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Prevent empty thumbnails from being removed in card view */
+.ol-card-view .thumbnail {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Make sure images in thumbnails are visible and properly sized */
+.ol-card-view .thumbnail img[src*="i.redd.it"],
+.ol-card-view .thumbnail img[src*="imgur.com"],
+.ol-card-view .thumbnail img[src*="reddit.com"],
+.ol-card-view .thumbnail img[src*="gyfcat.com"],
+.ol-card-view .thumbnail img[src*="gfycat.com"] {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+}
+
+/* For direct image links, show larger previews */
+.ol-card-view .link[data-type="link"][data-domain*="i.redd.it"] .thumbnail img,
+.ol-card-view .link[data-type="link"][data-domain*="imgur.com"] .thumbnail img {
+    max-width: none !important;
+    max-height: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Ensure GIFs are visible */
+.ol-card-view .thumbnail img[src$=".gif"],
+.ol-card-view .thumbnail img[src*=".gifv"] {
+    object-fit: contain !important;
+}
+
+/* Entry content styling */
+.ol-card-view .ol-card-entry {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100% !important;
+    margin-top: 8px !important;
+}
+
+/* Title styling */
+.ol-card-view .ol-card-entry .title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--md-sys-color-on-surface);
+    margin: 0;
+}
+
+.ol-card-view .ol-card-entry .title a {
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+}
+
+.ol-card-view .ol-card-entry .title a:hover {
+    text-decoration: underline;
+}
+
+/* Tagline (subreddit, author, time) styling */
+.ol-card-view .ol-card-entry .tagline {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.ol-card-view .ol-card-entry .tagline a {
+    color: var(--md-sys-color-primary);
+    font-weight: 500;
+}
+
+.ol-card-view .ol-card-entry .tagline .subreddit {
+    font-weight: 600;
+}
+
+.ol-card-view .ol-card-entry .tagline .author {
+    font-weight: 500;
+}
+
+/* Score and comments styling */
+.ol-card-view .ol-card-entry .score {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.ol-card-view .ol-card-entry .comments {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Buttons container styling */
+.ol-card-view .ol-card-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.ol-card-view .ol-card-buttons > li {
+    flex: 1;
+    min-width: 40px;
+}
+
+.ol-card-view .ol-card-buttons a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 10px;
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: transparent;
+    border: none;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.ol-card-view .ol-card-buttons a:hover {
+    background-color: var(--md-sys-color-surface-tint);
+    color: var(--md-sys-color-on-surface);
+}
+
+.ol-card-view .ol-card-buttons a.on {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    font-weight: 600;
+}
+
+/* Midcol (voting arrows) styling - fixed positioning */
+.ol-card-view .midcol {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    padding: 8px 4px !important;
+    margin: 0 !important;
+    order: -1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background-color: transparent !important;
+}
+
+.ol-card-view .midcol .arrow {
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+    cursor: pointer;
+    color: var(--md-sys-color-on-surface-variant) !important;
+    transition: color 0.2s;
+    margin: 2px 0 !important;
+    position: relative !important;
+    z-index: 15 !important;
+}
+
+.ol-card-view .midcol .arrow:hover {
+    color: var(--md-sys-color-primary) !important;
+}
+
+.ol-card-view .midcol .arrow.up {
+    order: -1;
+}
+
+.ol-card-view .midcol .arrow.down {
+    order: 1;
+}
+
+.ol-card-view .midcol .score {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--md-sys-color-on-surface) !important;
+    margin: 4px 0 !important;
+    position: relative !important;
+    z-index: 15 !important;
+}
+
+/* Fix award icons clipping behind voting buttons */
+.ol-card-view .midcol .award {
+    position: relative !important;
+    z-index: 5 !important;
+    margin-top: 4px !important;
+}
+
+/* Self post (text post) styling - fill the space better */
+.ol-card-view .link[data-type="self"] .ol-card-content {
+    flex-direction: column;
+}
+
+.ol-card-view .link[data-type="self"] .usertext {
+    background-color: var(--md-sys-color-surface-tint);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    padding: 16px !important;
+    margin-top: 8px !important;
+    width: 100% !important;
+    min-height: 60px !important;
+}
+
+.ol-card-view .link[data-type="self"] .usertext .md {
+    color: var(--md-sys-color-on-surface) !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Make self posts expand to fill card width */
+.ol-card-view .link[data-type="self"] .ol-post-container {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Better spacing for self post content */
+.ol-card-view .link[data-type="self"] .entry {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+}
+
+/* Link post with thumbnail */
+.ol-card-view .link[data-type="link"] .ol-post-container {
+    display: flex;
+    gap: 12px;
+}
+
+.ol-card-view .link[data-type="link"] .ol-card-thumbnail {
+    flex-shrink: 0;
+}
+
+.ol-card-view .link[data-type="link"] .ol-card-entry {
+    flex: 1;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .ol-card-view .link.ol-card-container {
+        padding: 10px;
+        gap: 6px;
+    }
+    
+    .ol-card-view .ol-card-thumbnail {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        min-height: 60px;
+    }
+    
+    .ol-card-view .ol-card-entry .title {
+        font-size: 15px;
+    }
+    
+    .ol-card-view .ol-card-buttons {
+        gap: 4px;
+    }
+    
+    .ol-card-view .ol-card-buttons > li {
+        min-width: 36px;
+    }
+    
+    .ol-card-view .ol-card-buttons a {
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+}
+
+/* Dark mode adjustments */
+html.res-nightmode .ol-card-view .link.ol-card-container {
+    background-color: var(--md-sys-color-surface-container);
+    border-color: var(--md-sys-color-outline-variant);
+}
+
+html.res-nightmode .ol-card-view .ol-card-buttons a:hover {
+    background-color: var(--md-sys-color-surface-tint);
+}
+
+/* Ensure compatibility with RES */
+.res .ol-card-view .link.ol-card-container {
+    margin-bottom: 12px !important;
+}
+
+.res .ol-card-view .ol-post-container[data-type="link"] {
+    display: flex !important;
+    gap: 12px !important;
+}
+
+
+
+/* Ensure thumbnails are properly sized in card view */
+.ol-card-view .thumbnail {
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px !important;
+    min-height: 70px !important;
+    order: -1 !important;
+    margin-right: 12px !important;
+    margin-left: 0 !important;
+}
+
+.ol-card-view .thumbnail img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    object-fit: cover;
+}
+
+/* Handle the case where thumbnail has no image */
+.ol-card-view .thumbnail:empty {
+    display: none !important;
+}
+
+/* Ensure entry takes up remaining space */
+.ol-card-view .entry {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+/* Firefox Mobile specific optimizations */
+@-moz-document url-prefix() {
+    .ol-card-view .link.ol-card-container {
+        -moz-appearance: none;
+    }
+    
+    .ol-card-view .ol-card-buttons a {
+        -moz-appearance: none;
+    }
+}
+
+/* Touch target optimizations for mobile */
+.ol-card-view .ol-card-buttons a {
+    min-height: 36px;
+    min-width: 36px;
+}
+
+/* Prevent text selection on buttons */
+.ol-card-view .ol-card-buttons a {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Add active state for touch feedback */
+.ol-card-view .ol-card-buttons a:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
