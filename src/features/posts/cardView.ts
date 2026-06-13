@@ -30,7 +30,8 @@ export default class CardView extends OLFeature {
     async getDefaultCardViewState(): Promise<boolean> {
         // Check if setting exists, if not, enable by default
         const storedValue = await store.get(cardViewKey);
-        return storedValue !== undefined ? storedValue : true;
+        // Handle null, undefined, or any falsy value
+        return storedValue === null || storedValue === undefined ? true : !!storedValue;
     }
     
     toggleCardView(enabled: boolean) {
