@@ -9,6 +9,7 @@ import NativeShare from "./nativeSharing";
 import IndentCommentHide from "./indentCommentHide";
 import ReimplementVotes from "./reimplementVotes";
 import ButtonHide from "./buttonHide";
+import CardView from "./cardView";
 
 function setupLinkPost(post: HTMLDivElement) {
     const comments = post.querySelector<HTMLAnchorElement>(".comments");
@@ -53,4 +54,5 @@ export default [
     IndentCommentHide,
     ReimplementVotes,
     ButtonHide,
+    CardView,
 ];

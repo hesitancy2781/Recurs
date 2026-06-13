@@ -1,0 +1,344 @@
+/* Card View Layout - Inspired by Sync For Reddit */
+
+/* Base card container styling */
+.ol-card-view .link.ol-card-container {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    margin-bottom: 12px !important;
+    padding: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Card content container */
+.ol-card-view .ol-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+/* Card layout for link posts */
+.ol-card-view .ol-post-container[data-type="link"] {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+}
+
+/* Thumbnail styling for card view */
+.ol-card-view .ol-card-thumbnail {
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px !important;
+    min-height: 70px !important;
+    object-fit: cover;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    order: -1 !important;
+    margin-right: 12px !important;
+    margin-left: 0 !important;
+}
+
+.ol-card-view .ol-card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    object-fit: cover;
+}
+
+/* Entry content styling */
+.ol-card-view .ol-card-entry {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Title styling */
+.ol-card-view .ol-card-entry .title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--md-sys-color-on-surface);
+    margin: 0;
+}
+
+.ol-card-view .ol-card-entry .title a {
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+}
+
+.ol-card-view .ol-card-entry .title a:hover {
+    text-decoration: underline;
+}
+
+/* Tagline (subreddit, author, time) styling */
+.ol-card-view .ol-card-entry .tagline {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.ol-card-view .ol-card-entry .tagline a {
+    color: var(--md-sys-color-primary);
+    font-weight: 500;
+}
+
+.ol-card-view .ol-card-entry .tagline .subreddit {
+    font-weight: 600;
+}
+
+.ol-card-view .ol-card-entry .tagline .author {
+    font-weight: 500;
+}
+
+/* Score and comments styling */
+.ol-card-view .ol-card-entry .score {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.ol-card-view .ol-card-entry .comments {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Buttons container styling */
+.ol-card-view .ol-card-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.ol-card-view .ol-card-buttons > li {
+    flex: 1;
+    min-width: 40px;
+}
+
+.ol-card-view .ol-card-buttons a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    font-size: 10px;
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: transparent;
+    border: none;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.ol-card-view .ol-card-buttons a:hover {
+    background-color: var(--md-sys-color-surface-tint);
+    color: var(--md-sys-color-on-surface);
+}
+
+.ol-card-view .ol-card-buttons a.on {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    font-weight: 600;
+}
+
+/* Midcol (voting arrows) styling */
+.ol-card-view .midcol {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    padding: 8px 4px !important;
+    order: -2 !important;
+    margin: 0 !important;
+}
+
+.ol-card-view .midcol .arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--md-sys-color-on-surface-variant);
+    transition: color 0.2s;
+}
+
+.ol-card-view .midcol .arrow:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.ol-card-view .midcol .arrow.up {
+    order: -1;
+}
+
+.ol-card-view .midcol .arrow.down {
+    order: 1;
+}
+
+.ol-card-view .midcol .score {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--md-sys-color-on-surface);
+    margin: 4px 0;
+}
+
+/* Self post (text post) styling */
+.ol-card-view .link[data-type="self"] .ol-card-content {
+    flex-direction: column;
+}
+
+.ol-card-view .link[data-type="self"] .usertext {
+    background-color: var(--md-sys-color-surface-tint);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.ol-card-view .link[data-type="self"] .usertext .md {
+    color: var(--md-sys-color-on-surface);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Link post with thumbnail */
+.ol-card-view .link[data-type="link"] .ol-post-container {
+    display: flex;
+    gap: 12px;
+}
+
+.ol-card-view .link[data-type="link"] .ol-card-thumbnail {
+    flex-shrink: 0;
+}
+
+.ol-card-view .link[data-type="link"] .ol-card-entry {
+    flex: 1;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .ol-card-view .link.ol-card-container {
+        padding: 10px;
+        gap: 6px;
+    }
+    
+    .ol-card-view .ol-card-thumbnail {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        min-height: 60px;
+    }
+    
+    .ol-card-view .ol-card-entry .title {
+        font-size: 15px;
+    }
+    
+    .ol-card-view .ol-card-buttons {
+        gap: 4px;
+    }
+    
+    .ol-card-view .ol-card-buttons > li {
+        min-width: 36px;
+    }
+    
+    .ol-card-view .ol-card-buttons a {
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+}
+
+/* Dark mode adjustments */
+html.res-nightmode .ol-card-view .link.ol-card-container {
+    background-color: var(--md-sys-color-surface-container);
+    border-color: var(--md-sys-color-outline-variant);
+}
+
+html.res-nightmode .ol-card-view .ol-card-buttons a:hover {
+    background-color: var(--md-sys-color-surface-tint);
+}
+
+/* Ensure compatibility with RES */
+.res .ol-card-view .link.ol-card-container {
+    margin-bottom: 12px !important;
+}
+
+.res .ol-card-view .ol-post-container[data-type="link"] {
+    display: flex !important;
+    gap: 12px !important;
+}
+
+
+
+/* Ensure thumbnails are properly sized in card view */
+.ol-card-view .thumbnail {
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px !important;
+    min-height: 70px !important;
+    order: -1 !important;
+    margin-right: 12px !important;
+    margin-left: 0 !important;
+}
+
+.ol-card-view .thumbnail img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    object-fit: cover;
+}
+
+/* Handle the case where thumbnail has no image */
+.ol-card-view .thumbnail:empty {
+    display: none !important;
+}
+
+/* Ensure entry takes up remaining space */
+.ol-card-view .entry {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+/* Firefox Mobile specific optimizations */
+@-moz-document url-prefix() {
+    .ol-card-view .link.ol-card-container {
+        -moz-appearance: none;
+    }
+    
+    .ol-card-view .ol-card-buttons a {
+        -moz-appearance: none;
+    }
+}
+
+/* Touch target optimizations for mobile */
+.ol-card-view .ol-card-buttons a {
+    min-height: 36px;
+    min-width: 36px;
+}
+
+/* Prevent text selection on buttons */
+.ol-card-view .ol-card-buttons a {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Add active state for touch feedback */
+.ol-card-view .ol-card-buttons a:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}

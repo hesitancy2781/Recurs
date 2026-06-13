@@ -2,6 +2,7 @@ import "~/css/hideAds.css";
 import "~/css/redditChanges.css";
 import "~/css/resCompat.css";
 import "~/css/comments.css";
+import "~/features/posts/css/cardView.css";
 import "~/material/theme.css";
 import "material-symbols/outlined.css";
 
