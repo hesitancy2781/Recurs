@@ -31,22 +31,114 @@
 
 /* Thumbnail styling for card view */
 .ol-card-view .ol-card-thumbnail {
-    width: 70px !important;
-    height: 70px !important;
-    min-width: 70px !important;
-    min-height: 70px !important;
+    width: 120px !important;
+    height: 120px !important;
+    min-width: 120px !important;
+    min-height: 120px !important;
     object-fit: cover;
     border-radius: var(--md-sys-shape-corner-extra-small);
     order: -1 !important;
     margin-right: 12px !important;
     margin-left: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
 }
 
 .ol-card-view .ol-card-thumbnail img {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     border-radius: var(--md-sys-shape-corner-extra-small);
     object-fit: cover;
+    display: block !important;
+}
+
+/* Handle thumbnail links to show larger previews */
+.ol-card-view .thumbnail a {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ol-card-view .thumbnail a img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+/* Larger thumbnails for link posts */
+.ol-card-view .link[data-type="link"] .thumbnail {
+    width: 140px !important;
+    height: 140px !important;
+    min-width: 140px !important;
+    min-height: 140px !important;
+}
+
+/* Special handling for image posts */
+.ol-card-view .link[data-type="link"][data-domain*="imgur.com"] .thumbnail,
+.ol-card-view .link[data-type="link"][data-domain*="i.redd.it"] .thumbnail,
+.ol-card-view .link[data-type="link"][data-domain*="reddit.com"] .thumbnail {
+    width: 160px !important;
+    height: 160px !important;
+    min-width: 160px !important;
+    min-height: 160px !important;
+}
+
+/* Ensure thumbnails are visible and properly sized */
+.ol-card-view .thumbnail:not(:empty) {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Thumbnail placeholder styling */
+.ol-card-view .ol-thumbnail-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: var(--md-sys-color-surface-tint) !important;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-size: 24px !important;
+}
+
+.ol-card-view .ol-thumbnail-placeholder .material-symbols-outlined {
+    font-size: 24px !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Prevent empty thumbnails from being removed in card view */
+.ol-card-view .thumbnail {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Make sure images in thumbnails are visible and properly sized */
+.ol-card-view .thumbnail img[src*="i.redd.it"],
+.ol-card-view .thumbnail img[src*="imgur.com"],
+.ol-card-view .thumbnail img[src*="reddit.com"],
+.ol-card-view .thumbnail img[src*="gyfcat.com"],
+.ol-card-view .thumbnail img[src*="gfycat.com"] {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+}
+
+/* For direct image links, show larger previews */
+.ol-card-view .link[data-type="link"][data-domain*="i.redd.it"] .thumbnail img,
+.ol-card-view .link[data-type="link"][data-domain*="imgur.com"] .thumbnail img {
+    max-width: none !important;
+    max-height: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Ensure GIFs are visible */
+.ol-card-view .thumbnail img[src$=".gif"],
+.ol-card-view .thumbnail img[src*=".gifv"] {
+    object-fit: contain !important;
 }
 
 /* Entry content styling */

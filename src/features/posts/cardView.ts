@@ -20,11 +20,9 @@ export default class CardView extends OLFeature {
             )
         );
         
-        // Check if card view should be enabled by default
+        // Load the current setting and apply it
         const isEnabled = await this.getDefaultCardViewState();
-        if (isEnabled) {
-            this.toggleCardView(true);
-        }
+        this.toggleCardView(isEnabled);
     }
     
     async getDefaultCardViewState(): Promise<boolean> {
@@ -40,6 +38,8 @@ export default class CardView extends OLFeature {
         } else {
             document.body.classList.remove("ol-card-view");
         }
+        // Store the current state for persistence
+        store.set(cardViewKey, enabled);
     }
     
     async onPost(post: HTMLDivElement) {
@@ -69,9 +69,17 @@ export default class CardView extends OLFeature {
             postContainer.classList.add("ol-card-content");
         }
         
+        // Handle thumbnails - prevent removal of empty thumbnails in card view
         const thumbnail = post.querySelector(".thumbnail");
         if (thumbnail) {
             thumbnail.classList.add("ol-card-thumbnail");
+            // If thumbnail is empty and we're in card view, add a placeholder
+            if (thumbnail.children.length === 0 && document.body.classList.contains("ol-card-view")) {
+                const placeholder = document.createElement("div");
+                placeholder.className = "ol-thumbnail-placeholder";
+                placeholder.innerHTML = '<span class="material-symbols-outlined">image</span>';
+                thumbnail.appendChild(placeholder);
+            }
         }
         
         const entry = post.querySelector(".entry");
